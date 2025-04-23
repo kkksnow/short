@@ -45,6 +45,11 @@ export async function onRequest(context) {
     };
     const timedata = new Date();
     const formattedDate = new Intl.DateTimeFormat('zh-CN', options).format(timedata);
+    const corsHeaders = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Max-Age': '86400', // 24 hours
+    };
     const { url, slug, expiry, password } = await request.json(); // 获取过期时间
         // 验证密码
         if (!password || password !== context.env.ACCESS_PASSWORD) {
@@ -53,11 +58,6 @@ export async function onRequest(context) {
                 status: 403
             });
         }
-    const corsHeaders = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Max-Age': '86400', // 24 hours
-    };
     if (!url) return Response.json({ message: 'Missing required parameter: url.' });
 
     // url格式检查
