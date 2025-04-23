@@ -2,7 +2,11 @@ async function errorHandling(context) {
     try {
       return await context.next();
     } catch (err) {
-      return new Response(`${err.message}\n${err.stack}`, { status: 500 });
+      // 强制所有错误返回 JSON
+        return Response.json(
+          { error: err.message, stack: err.stack },
+          { status: 500, headers: { "Content-Type": "application/json" } }
+        );
     }
   }
   
@@ -92,13 +96,16 @@ async function errorHandling(context) {
         }
   
       } else {
-        return new Response('You need to login.', {
-          status: 401,
-          headers: {
-            // Prompts the user for credentials.
-            'WWW-Authenticate': 'Basic realm="my scope", charset="UTF-8"',
-          },
-        });
+        return Response.json(
+          { message: 'Authentication required' },
+          {
+            status: 401,
+            headers: {
+              'WWW-Authenticate': 'Basic realm="my scope"',
+              'Content-Type': 'application/json'
+            }
+          }
+        );
       }
     }
   
