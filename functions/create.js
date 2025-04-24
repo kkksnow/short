@@ -50,8 +50,14 @@ export async function onRequest(context) {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Max-Age': '86400', // 24 hours
     };
-    const { url, slug, expiry } = await request.json(); // 获取过期时间
-    if (!url) return Response.json({ message: 'Missing required parameter: url.' });
+    const { url, slug, expiry, password } = await request.json(); // 获取过期时间和密码
+    if (!url) return Response.json({ message: '缺少必需的参数：url.' });
+    if (!password || password !== env.ADMIN_PASSWORD) {
+      return Response.json({ message: '访问密码不正确.' }, {
+        headers: corsHeaders,
+        status: 401
+      });
+    }
 
     // url格式检查
     if (!/^https?:\/\/.{3,}/.test(url)) {
