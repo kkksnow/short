@@ -107,6 +107,8 @@
         <p x-show.transition.opacity="alert" :class="alert?.type" x-text="alert?.message"></p>
         <div class="mb-4">
           <input placeholder="输入要缩短的网址..." x-model="url" x-ref="url"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline mb-2" />
+          <input type="password" placeholder="输入访问密码..." x-model="password"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" />
         </div>
         
@@ -137,7 +139,7 @@
     </div>
   </main>
   <footer class="text-gray-600">
-      //<a href="https://www.wangwangit.com">一只会飞的旺旺</a>
+      //<a href="https://www.wangwangit.com">原作者</a>
   </footer>
 
   <script src="asset/js/alpine.js"></script>
@@ -145,6 +147,7 @@
     const app = {
       url: '',
       slug: '',
+      password: '',
       expiry: '', // 添加过期时间属性
       alert: null,
       loading: false,
@@ -166,11 +169,12 @@
         this.loading = true
 
 
-        const body = { 
-      url: this.url, 
-      slug: this.slug, 
-      expiry: this.expiry
-    }
+        const body = {
+          url: this.url,
+          slug: this.slug,
+          password: this.password,
+          expiry: this.expiry
+        }
 
         fetch('/create', {
           method: 'post',
