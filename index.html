@@ -102,21 +102,22 @@
 <body>
   <main>
     <div class="container">
-      <h1 class="text-3xl font-bold text-gray-800">短链接工具fix</h1>
+      <h1 class="text-3xl font-bold text-gray-800">短链接工具_1.01</h1>
       <div x-data="app" x-cloak>
         <p x-show.transition.opacity="alert" :class="alert?.type" x-text="alert?.message"></p>
         <div class="mb-4">
           <input placeholder="输入要缩短的网址..." x-model="url" x-ref="url"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline mb-2" />
-          <input type="password" placeholder="输入访问密码..." x-model="password"
+          <input placeholder="自定义短链接 (可选)" x-model="slug"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" />
+          <input type="password" placeholder="输入管理密码...（联系Season提供）" x-model="password"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" />
         </div>
         
         <details class="mb-4 border border-gray-300 rounded-md">
           <summary class="px-4 py-2 cursor-pointer font-medium">自定义设置</summary>
           <div class="px-4 py-2">
-            <input placeholder="自定义短链接 (可选)" x-model="slug"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline" />
+            
             <div class="mt-2">
               <label for="expiry" class="block text-sm font-medium text-gray-700">过期时间 (可选):</label>
               <select id="expiry" x-model="expiry"
@@ -139,7 +140,7 @@
     </div>
   </main>
   <footer class="text-gray-600">
-      //<a href="https://www.wangwangit.com">特别感谢</a>
+      //<a href="https://www.wangwangit.com">特别鸣谢</a>
   </footer>
 
   <script src="asset/js/alpine.js"></script>
